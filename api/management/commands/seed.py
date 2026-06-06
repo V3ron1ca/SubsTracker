@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.conf import settings
 
-from api.models import Platform
+from api.models import Platform, PaymentMethod
 
 User = get_user_model()
 
@@ -66,6 +66,13 @@ PLATFORMS = [
     "Other",
 ]
 
+PAYMENT_METHODS = [
+    "BLIK",
+    "Karta",
+    "Przelew",
+    "Gotówka"
+]
+
 
 class Command(BaseCommand):
     help = "Seed initial data (platforms + superuser)"
@@ -85,6 +92,20 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(
                 f"Created {created_platforms} new platforms"
+            )
+        )
+
+        created_payments = 0
+
+        for name in PAYMENT_METHODS:
+            _, created = PaymentMethod.objects.get_or_create(name=name)
+
+            if created:
+                created_payments += 1
+
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Created {created_payments} new payments"
             )
         )
 
