@@ -52,6 +52,9 @@ DB_USER=nazwauzytkownika
 DB_PASSWORD=haslo
 DB_HOST=localhost
 DB_PORT=5432
+
+ACCESS_TOKEN_LIFETIME_MIN=15
+REFRESH_TOKEN_LIFETIME_DAYS=7
 ```
 
 ## 1. Utworzenie środowiska wirtualnego
